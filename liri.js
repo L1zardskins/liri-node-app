@@ -52,6 +52,7 @@ switch (userInput) {
         break;
 
     default:
+        console.log("Give me an action!")
         break;
 };
 
@@ -97,15 +98,19 @@ function spotifySong(songName) {
 };
 
 function movieThis(searchMovie) {
+    if (!searchMovie) {
+        searchMovie = "Mr. Nobody"
+    };
     //var searchMovie = process.argv[3];
     request("http://www.omdbapi.com/?t=" + searchMovie.replace(" ", "+") + "&y=&plot=short&apikey=trilogy", function (error, response, body) {
 
         // If the request is successful (i.e. if the response status code is 200)
         if (!error && response.statusCode === 200) {
+            //console.log(JSON.parse(body));
             console.log("Title: " + JSON.parse(body).Title);
             console.log("Year: " + JSON.parse(body).Year);
             console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
-            console.log("Rotten Tomatoes: " + JSON.parse(body).Ratings[1].Source);
+            console.log("Rotten Tomatoes: " + JSON.parse(body).Ratings[1].Value);
             console.log("Country: " + JSON.parse(body).Country);
             console.log("Language: " + JSON.parse(body).Language);
             console.log("Plot: " + JSON.parse(body).Plot);
@@ -113,5 +118,6 @@ function movieThis(searchMovie) {
 
         }
     });
+
 
 }
