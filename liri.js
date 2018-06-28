@@ -63,6 +63,7 @@ function tweets(params) {
             //console.log(tweets);
             for (let i = 0; i < 3; i++) {
                 console.log(tweets[i].created_at + " - " + tweets[i].text);
+                fs.appendFile("./log.txt", "\n" + tweets[i].created_at + " - " + tweets[i].text)
             }
 
         }
@@ -91,6 +92,7 @@ function spotifySong(songName) {
                 console.log("Preview: " + data.tracks.items[i].external_urls.spotify);
                 console.log("Album: " + data.tracks.items[i].album.name);
                 console.log("*----------------------------------*");
+                fs.appendFile("./log.txt", "\n" + "Result: " + i + "\n" + "Artist: " + data.tracks.items[i].artists[0].name + "\n" + "Song name: " + data.tracks.items[i].name + "\n" + "Preview: " + data.tracks.items[i].external_urls.spotify + "\n" + "Album: " + data.tracks.items[i].album.name + "\n" + "*----------------------------------*")
             }
         }
 
@@ -115,6 +117,11 @@ function movieThis(searchMovie) {
             console.log("Language: " + JSON.parse(body).Language);
             console.log("Plot: " + JSON.parse(body).Plot);
             console.log("Actors: " + JSON.parse(body).Actors);
+            fs.appendFile("./log.txt", "\n" + "Title: " + JSON.parse(body).Title + "\n" + "Year: " + JSON.parse(body).Year + "\n" + "IMDB Rating: " + JSON.parse(body).imdbRating + "\n" + "Rotten Tomatoes: " + JSON.parse(body).Ratings[1].Value + "Country: " + JSON.parse(body).Country + "\n" + "Language: " + JSON.parse(body).Language + "\n" + "Plot: " + JSON.parse(body).Plot + "\n" + "Actors: " + JSON.parse(body).Actors, function (err) {
+                if (err) {
+                    return console.log(err);
+                }
+            });
 
         }
     });
